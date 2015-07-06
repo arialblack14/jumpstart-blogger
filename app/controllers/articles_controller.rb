@@ -17,13 +17,9 @@ class ArticlesController < ApplicationController
 		@article = Article.new(article_params)
 		@article.save
 
+		flash.notice = "Article '#{@article.title}' was just created!"
+
 		redirect_to article_path(@article)
-	end
-
-	def destroy
-		@article = Article.find(params[:id]).destroy
-
-		redirect_to articles_path
 	end
 
 	def edit
@@ -34,6 +30,15 @@ class ArticlesController < ApplicationController
 		@article = Article.find(params[:id])
 		@article.update(article_params)
 
+		flash.notice = "Article '#{@article.title} was updated!'"
+
 		redirect_to article_path(@article)
+	end
+
+	def destroy
+		@article = Article.find(params[:id]).destroy
+
+		redirect_to articles_path
+		flash.notice = "Article '#{@article.title}' was deleted"
 	end
 end
